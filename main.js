@@ -1,6 +1,8 @@
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
+const myMusic = new Audio("MeuCarango.mp3");
+
 // Factory functions to create elements
 const wall = (x) => {
     y = 0;
@@ -208,6 +210,15 @@ function resetGame() {
     dy = 1;
 }
 
+function playMusic() {
+  if (gameState === 'start') {
+    myMusic.pause();
+    myMusic.currentTime = 0
+  }
+  else if (gameState === 'play') {myMusic.play()}
+  else if (gameState === 'gameOver') {myMusic.pause()}
+}
+
 // function to control the game
 function playGame() {
     draw()
@@ -220,6 +231,8 @@ function playGame() {
         distance += 1;
         getScore();
     }  
+
+    playMusic()
 
     requestAnimationFrame(playGame)
 }
